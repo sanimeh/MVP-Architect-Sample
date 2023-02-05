@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.laces.app.databinding.ActivityDetailsBinding
+import com.laces.app.details.adapter.ProductDetailsImagesAdapter
 import com.laces.app.mvp.OccActivity
 import com.laces.app.sdk.model.ProductModel
 
@@ -14,6 +15,13 @@ class DetailsActivity : OccActivity<ActivityDetailsBinding, DetailsPresenter, De
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter.observeProducts(this)
+        handleClicks()
+    }
+
+    private fun handleClicks() {
+        binding.toolbar.buttonBack.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun providePresenter(): DetailsPresenter {
@@ -26,7 +34,16 @@ class DetailsActivity : OccActivity<ActivityDetailsBinding, DetailsPresenter, De
     }
 
     override fun setContent(result: ProductModel) {
-//        TODO("Not yet implemented")
+        binding.model = result
+        binding.toolbar.textViewTitle.text = result.category
+        initViewPagerImages(result.images)
+    }
+
+    private fun initViewPagerImages(images: List<String>) {
+        val productImagesAdapter = ProductDetailsImagesAdapter()
+        binding.viewPagerImages.adapter = productImagesAdapter
+        productImagesAdapter.submitList(images)
+        binding.indicatorViewImages.attachTo(binding.viewPagerImages)
     }
 
     override fun setLoading(isLoading: Boolean) {
