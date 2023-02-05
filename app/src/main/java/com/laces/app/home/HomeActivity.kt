@@ -1,10 +1,12 @@
 package com.laces.app.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.core.view.isVisible
 import com.laces.app.databinding.ActivityHomeBinding
+import com.laces.app.details.DetailsActivity
 import com.laces.app.home.adapter.HomeAdapter
 import com.laces.app.mvp.OccActivity
 import com.laces.app.sdk.model.ProductModel
@@ -27,11 +29,16 @@ class HomeActivity : OccActivity<ActivityHomeBinding, HomePresenter, HomeView>()
     }
 
     override fun setRecyclerData(result: List<ProductModel>) {
-        binding.recyclerViewProducts.adapter = HomeAdapter(result)
+        binding.recyclerViewProducts.adapter = HomeAdapter(result, ::goToProductDetails)
     }
 
+    private fun goToProductDetails(id: Int) {
+        val intent = Intent(this, DetailsActivity::class.java)
+        intent.putExtra("id", id)
+        startActivity(intent)
+    }
     override fun setLoading(isLoading: Boolean) {
-        binding.progressBarHome.isVisible = isLoading
+        binding.progressBar.isVisible = isLoading
     }
 
     override fun setError(message: String) {

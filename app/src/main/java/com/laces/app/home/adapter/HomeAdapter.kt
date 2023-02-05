@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.laces.app.databinding.RowProductBinding
 import com.laces.app.sdk.model.ProductModel
 
-class HomeAdapter(private val productList: List<ProductModel>) :
+class HomeAdapter(private val productList: List<ProductModel>, val onClickItem: (id: Int) -> Unit) :
     RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
     private lateinit var layoutInflater: LayoutInflater
@@ -32,6 +32,9 @@ class HomeAdapter(private val productList: List<ProductModel>) :
     override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
         val currentModel = productList[position]
         holder.bind(currentModel)
+        holder.itemView.setOnClickListener {
+            onClickItem(currentModel.id)
+        }
     }
 
 
