@@ -22,6 +22,10 @@ class DetailsActivity : OccActivity<ActivityDetailsBinding, DetailsPresenter, De
         binding.toolbar.buttonBack.setOnClickListener {
             onBackPressed()
         }
+
+        binding.layoutProductDescription.setOnClickListener {
+            binding.showDescription = binding.showDescription == false
+        }
     }
 
     override fun providePresenter(): DetailsPresenter {
@@ -35,7 +39,7 @@ class DetailsActivity : OccActivity<ActivityDetailsBinding, DetailsPresenter, De
 
     override fun setContent(result: ProductModel) {
         binding.model = result
-        binding.toolbar.textViewTitle.text = result.category
+        binding.toolbar.textViewTitle.text = result.title
         initViewPagerImages(result.images)
     }
 

@@ -1,6 +1,7 @@
 package com.laces.app.sdk.model
 
 import com.google.gson.annotations.SerializedName
+import kotlin.math.roundToInt
 
 data class ProductModel(
 
@@ -36,4 +37,30 @@ data class ProductModel(
 
     @SerializedName("title")
     val title: String
-)
+){
+    fun getPriceBack(): String {
+        return "$price €"
+    }
+
+    fun getDiscountBack(): String {
+        return "${discountPercentage.roundToInt()}% OFF"
+    }
+
+    fun getOfferBack(): String {
+        val value: Float = (price.toFloat() - ((discountPercentage / 100) * price.toFloat()))
+
+        return "$value €"
+    }
+
+    fun getStockBack(): String {
+        return when (stock) {
+            0 -> "Sold out!"
+            in 1..10 -> " Only $stock left "
+            else -> "In Stock"
+        }
+    }
+
+    fun inStock(): Boolean {
+        return stock > 0
+    }
+}
