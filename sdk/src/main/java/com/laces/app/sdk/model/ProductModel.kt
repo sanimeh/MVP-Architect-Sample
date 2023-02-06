@@ -47,9 +47,9 @@ data class ProductModel(
     }
 
     fun getOfferBack(): String {
-        val value: Float = (price.toFloat() - ((discountPercentage / 100) * price.toFloat()))
 
-        return "$value €"
+        var value: Float = (price.toFloat() - ((discountPercentage / 100) * price.toFloat()))
+        return "${value.roundToInt()} €"
     }
 
     fun getStockBack(): String {

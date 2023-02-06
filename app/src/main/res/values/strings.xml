@@ -2,5 +2,6 @@
     <string name="app_name">Laces</string>
 
     <string name="description">Description</string>
+    <string name="category">Category:</string>
 
 </resources>

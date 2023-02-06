@@ -39,7 +39,7 @@ class DetailsActivity : OccActivity<ActivityDetailsBinding, DetailsPresenter, De
 
     override fun setContent(result: ProductModel) {
         binding.model = result
-        binding.toolbar.textViewTitle.text = result.title
+        binding.toolbar.textViewToolbar.text = result.title
         initViewPagerImages(result.images)
     }
 
